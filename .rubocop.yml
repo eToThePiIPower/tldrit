@@ -9,3 +9,7 @@ Style/Documentation:
     - 'app/helpers/*_helper.rb'
     - 'config/application.rb'
     - 'db/migrate/*'
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
