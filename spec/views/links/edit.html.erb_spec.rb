@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'links/edit', type: :view do
   before(:each) do
-    @link = assign(:link, Link.create!(
-                            title: 'MyString',
-                            url: 'MyString'
-    ))
+    @link = assign(:link, create(:link))
   end
 
   it 'renders the edit link form' do

@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'links/new', type: :view do
   before(:each) do
-    assign(:link, Link.new(
-                    title: 'MyString',
-                    url: 'MyString'
-    ))
+    assign(:link, build(:link))
   end
 
   it 'renders new link form' do

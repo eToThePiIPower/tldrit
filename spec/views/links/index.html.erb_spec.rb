@@ -3,14 +3,8 @@ require 'rails_helper'
 RSpec.describe 'links/index', type: :view do
   before(:each) do
     assign(:links, [
-             Link.create!(
-               title: 'Title',
-               url: 'Url'
-             ),
-             Link.create!(
-               title: 'Title',
-               url: 'Url'
-             )
+             create(:link, title: 'Title', url: 'Url'),
+             create(:link, title: 'Title', url: 'Url')
            ])
   end
 
