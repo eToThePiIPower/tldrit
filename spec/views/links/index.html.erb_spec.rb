@@ -10,7 +10,7 @@ RSpec.describe 'links/index', type: :view do
 
   it 'renders a list of links' do
     render
-    assert_select 'tr>td', text: 'Title'.to_s, count: 2
-    assert_select 'tr>td', text: 'Url'.to_s, count: 2
+    assert_select 'li>h4>a', text: 'Title'.to_s, count: 2
+    assert_select 'li>h4>small', text: '(Url)'.to_s, count: 2
   end
 end

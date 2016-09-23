@@ -5,6 +5,9 @@ Metrics/MethodLength:
   Exclude:
     - 'db/migrate/*'
 
+Metrics/MethodLength:
+  Max: 15
+
 Metrics/AbcSize:
   Max: 20
 
