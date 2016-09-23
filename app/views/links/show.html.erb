@@ -1,7 +1,22 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4><%= @link.title %> <small>(<%= @link.url %>)</small></h4>
-    <small>Submitted at <%= @link.created_at %> by <%= @link.user.email %></small>
+    <h4>
+      <%= link_to @link.title, @link.url %>
+      <span class="small glyphicon glyphicon-link"></span>
+      <small>(<%= @link.host %>)</small>
+    </h4>
+    <small>
+      Submitted <%= time_ago_in_words(@link.created_at) %>
+      by <%= @link.user.email %>
+    </small>
   </div>
   <div class="panel-body">Lorem Ipsum</div>
+  <% if user_signed_in? && current_user == @link.user %>
+    <div class="panel-footer clearfix">
+      <div class="btn-group pull-right">
+        <%= link_to 'Edit', edit_link_path(@link), class: 'btn btn-xs btn-default' %>
+        <%= link_to 'Delete', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
+      </div>
+    </div>
+  <% end %>
 </div>
