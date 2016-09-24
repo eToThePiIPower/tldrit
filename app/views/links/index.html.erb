@@ -1,6 +1,7 @@
 <ul class="list-group">
   <% @links.each do |link| %>
     <li class="link list-group-item">
+      <%= render 'votes', link: link %>
       <h4 class="title">
         <%= link_to link.title, link %>
         <span class="small glyphicon glyphicon-link"></span>

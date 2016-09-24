@@ -14,6 +14,8 @@ gem 'devise', '~> 4.2'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
+gem 'acts_as_votable', '~> 0.10.0'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails', '~> 4.7'

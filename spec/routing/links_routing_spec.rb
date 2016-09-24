@@ -33,5 +33,13 @@ RSpec.describe LinksController, type: :routing do
     it 'routes to #destroy' do
       expect(delete: '/links/1').to route_to('links#destroy', id: '1')
     end
+
+    it 'routes to #upvote' do
+      expect(put: '/links/1/upvote').to route_to('links#upvote', id: '1')
+    end
+
+    it 'routes to #downvote' do
+      expect(put: '/links/1/downvote').to route_to('links#downvote', id: '1')
+    end
   end
 end

@@ -1,7 +1,8 @@
-<div class="panel panel-default">
+<div class="panel panel-default link">
   <div class="panel-heading">
+    <%= render 'votes', link: @link %>
     <h4>
-      <%= link_to @link.title, @link.url %>
+      <%= link_to @link.title, @link.full_url %>
       <span class="small glyphicon glyphicon-link"></span>
       <small>(<%= @link.host %>)</small>
     </h4>

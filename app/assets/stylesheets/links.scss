@@ -7,4 +7,14 @@
   }
   .author {
   }
+  position: relative;
+
+  .votes {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -3em;
+    padding-top: 3px;
+    text-align: center;
+  }
 }

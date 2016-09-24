@@ -315,4 +315,64 @@ RSpec.describe LinksController, type: :controller do
       end
     end
   end
+
+  describe 'PUT #upvote' do
+    context 'when a user is logged in' do
+      before do
+        @link = create(:link)
+        @user = create(:user)
+        sign_in(@user)
+        request.env['HTTP_REFERER'] = '/'
+      end
+
+      it 'increases upvotes by 1' do
+        expect do
+          put :upvote, id: @link.id
+        end.to change(@link.votes_for.up, :count).by(1)
+      end
+    end
+
+    context 'when no user is logged in' do
+      before do
+        @link = create(:link)
+        request.env['HTTP_REFERER'] = '/'
+      end
+
+      it 'does not increase upvotes' do
+        expect do
+          put :upvote, id: @link.id
+        end.not_to change(@link.votes_for.up, :count)
+      end
+    end
+  end
+
+  describe 'PUT #downvote' do
+    context 'when a user is logged in' do
+      before do
+        @link = create(:link)
+        @user = create(:user)
+        sign_in(@user)
+        request.env['HTTP_REFERER'] = '/'
+      end
+
+      it 'increases downvotes by 1' do
+        expect do
+          put :downvote, id: @link.id
+        end.to change(@link.votes_for.down, :count).by(1)
+      end
+    end
+
+    context 'when no user is logged in' do
+      before do
+        @link = create(:link)
+        request.env['HTTP_REFERER'] = '/'
+      end
+
+      it 'does not increase downvotes' do
+        expect do
+          put :downvote, id: @link.id
+        end.not_to change(@link.votes_for.down, :count)
+      end
+    end
+  end
 end

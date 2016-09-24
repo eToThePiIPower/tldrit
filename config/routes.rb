@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'links#index'
-  resources :links
+  resources :links do
+    member do
+      put 'upvote', to: 'links#upvote'
+      put 'downvote', to: 'links#downvote'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
