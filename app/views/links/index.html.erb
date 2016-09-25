@@ -11,6 +11,7 @@
         Submitted <%= time_ago_in_words(link.created_at) %>
         by <%= link.user.email %>
       </small>
+      <div class="badge"><%= pluralize link.comments.count, 'comment' %></div>
     </li>
   <% end %>
 </ul>

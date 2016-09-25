@@ -1,0 +1,31 @@
+<div class="panel panel-default comments">
+  <div class="panel-heading">
+    <div class="panel-title">
+      Comments
+      <span class="small"><%= comments.count %> total</span>
+    </div>
+  </div>
+  <ul class="list-group">
+    <% comments.each do |comment| %>
+      <li class="list-group-item comment">
+        <div class="comment-body">
+          <%= markdown(comment.body) %>
+        </div>
+        <div class='small' class="comment-meta">
+          Posted <%= time_ago_in_words(comment.created_at) %>
+          by <%= comment.user.email %>
+          <% if user_signed_in? && comment.user == current_user %>
+            <div class="btn-group comment-actions">
+              <%= link_to 'Edit', edit_link_comment_path(@link, comment),
+                    class: 'btn btn-xs btn-default' %>
+              <%= link_to 'Delete', link_comment_path(id: comment.id, link_id: @link.id),
+                    class: 'btn btn-xs btn-danger',
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+            </div>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

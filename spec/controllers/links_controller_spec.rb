@@ -15,6 +15,27 @@ RSpec.describe LinksController, type: :controller do
       get :show, id: link.id
       expect(assigns(:link)).to eq(link)
     end
+
+    context 'when a user is signed in' do
+      it 'assigns a new comment as @comment' do
+        sign_in(create(:user))
+        link = create(:link)
+
+        get :show, id: link.id
+
+        expect(assigns(:comment)).to be_a_new(Comment)
+      end
+    end
+
+    context 'when no user is signed in' do
+      it 'assigns does not a new comment as @comment' do
+        link = create(:link)
+
+        get :show, id: link.id
+
+        expect(assigns(:comment)).to be_nil
+      end
+    end
   end
 
   describe 'GET #new' do
@@ -213,7 +234,7 @@ RSpec.describe LinksController, type: :controller do
         end
 
         it 'flashes an authorization error' do
-          delete :destroy, id: @link.id
+          put :update, id: @link.id, link: new_attributes
           expect(flash[:alert]).to match(/You are not authorized/)
         end
 
