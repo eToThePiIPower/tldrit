@@ -1,0 +1,73 @@
+@mixin nav-tabs-variant($heading-text, $heading-bg, $heading-border, $heading-active-text:$heading-text) {
+  .nav-tabs > li > a,
+  .nav-tabs > li > a:hover,
+  .nav-tabs > li > a:focus {
+  	color: $heading-text;
+  }
+  .nav-tabs > .open > a,
+  .nav-tabs > .open > a:hover,
+  .nav-tabs > .open > a:focus,
+  .nav-tabs > li > a:hover,
+  .nav-tabs > li > a:focus {
+  	color: $heading-text;
+  	background-color: $heading-border;
+  	border-color: transparent;
+  }
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus {
+  	color: $heading-active-text;
+  	background-color: #fff;
+  	border-color: $heading-border;
+  	border-bottom-color: transparent;
+  }
+  .nav-tabs > li.dropdown .dropdown-menu {
+      background-color: $heading-bg; /* bg color */
+      border-color: $heading-border; /* border color */
+  }
+  .nav-tabs > li.dropdown .dropdown-menu > li > a {
+      color: $heading-text; /* normal text color */
+  }
+  .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+  .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+      background-color: $heading-border; /* hover bg color */
+  }
+  .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+  .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+  .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+      color: #fff; /* active text color */
+      background-color: $heading-text; /* active bg color */
+  }
+}
+
+.panel.with-nav-tabs {
+  &.panel-default { @include nav-tabs-variant($panel-default-text, $panel-default-heading-bg, $panel-default-border) }
+  &.panel-primary { @include nav-tabs-variant($panel-primary-text, $panel-primary-heading-bg, $panel-primary-border, $brand-primary) }
+  &.panel-info { @include nav-tabs-variant($panel-info-text, $panel-info-heading-bg, $panel-info-border) }
+  &.panel-success { @include nav-tabs-variant($panel-success-text, $panel-success-heading-bg, $panel-success-border) }
+  &.panel-warning { @include nav-tabs-variant($panel-warning-text, $panel-warning-heading-bg, $panel-warning-border) }
+  &.panel-danger { @include nav-tabs-variant($panel-danger-text, $panel-danger-heading-bg, $panel-danger-border) }
+
+  .nav-justified {
+  	margin-bottom: -1px;
+  }
+  .nav-tabs {
+    border-bottom: none;
+  }
+  .panel-heading {
+    padding: 5px 5px 0 5px;
+  }
+  .list-group {
+    margin-bottom: 0;
+    .list-group-item {
+      border-width: 1px 0;
+      &:first-child {
+        border-top-width: 0;
+        border-radius: 0;
+      }
+      &:last-child {
+        border-bottom-width: 0;
+      }
+    }
+  }
+}

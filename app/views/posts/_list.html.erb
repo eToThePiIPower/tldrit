@@ -1,7 +1,7 @@
 <ul class="list-group">
-  <% @posts.each do |post| %>
+  <% posts.each do |post| %>
     <li class="post list-group-item">
-      <%= render 'votes', post: post %>
+      <%= render 'posts/votes', post: post %>
       <h4 class="title">
         <%= link_to post.title, post %>
         <% if post.link %>

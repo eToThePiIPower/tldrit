@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-sm-4 col-lg-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <%= @user.username %>
+        </div>
+      </div>
+      <div class="panel-image">
+        <img src="<%= @user.gravatar %>" alt="" class="panel-image-preview">
+      </div>
+      <div class="panel-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-4"><strong>Joined</strong></div>
+            <div class="col-xs-8 text-right"><%= time_ago_in_words(@user.created_at) %> ago</div>
+
+            <div class="col-xs-4"><strong>Posts</strong></div>
+            <div class="col-xs-8 text-right"><%= @user.posts.size %></div>
+
+            <div class="col-xs-4"><strong>Comments</strong></div>
+            <div class="col-xs-8 text-right"><%= @user.comments.size %></div>
+
+            <div class="col-xs-4"><strong>Votes</strong></div>
+            <div class="col-xs-8 text-right"><%= @user.votes.size %></div>
+          </div>
+        </div>
+      </div> <!-- /.panel-body -->
+      <div class="panel-footer text-center">
+        <a href="<%= @user.facebook_url %>" title="View this user's profile on Facebook">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+          <span class="sr-only">View this user's profile on Facebook</span>
+        </a>
+        <a href="<%= @user.twitter_url %>" title="View this user's profile on Twitter">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+          <span class="sr-only">View this user's profile on Twitter</span>
+        </a>
+        <a href="<%= @user.google_plus_url %>" title="View this user's profile on Google+">
+          <i class="fa fa-google-plus" aria-hidden="true"></i>
+          <span class="sr-only">View this user's profile on Google+</span>
+        </a>
+        <a href="<%= @user.homepage_url %>" title="View this user's homepage">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          <span class="sr-only">View this user's homepage</span>
+        </a>
+      </div>
+    </div> <!-- /.panel -->
+  </div> <!-- /.col-sm-4.col-lg-3 -->
+
+  <div class="col-sm-8 col-lg-9">
+    <div class="panel panel-default with-nav-tabs">
+      <div class="panel-heading">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#posts" data-toggle="tab">Posts</a></li>
+          <li><a href="#comments" data-toggle="tab">Comments</a></li>
+        </ul>
+      </div>
+
+      <div class="tab-content">
+        <div id="posts" class="tab-pane fade in active">
+          <div class="panel-body">
+            <div class="container-fluid">
+              <%= render 'posts/list', posts: @user.posts.order(cached_votes_score: :desc) %>
+            </div>
+          </div>
+        </div>
+        <div id="comments" class="tab-pane fade">
+          <%= render 'comments/list', comments: @user.comments.order(created_at: :desc) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- /.row -->

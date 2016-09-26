@@ -12,7 +12,7 @@
     </h4>
     <small>
       Submitted <%= time_ago_in_words(@post.created_at) %>
-      by <%= @post.user.username %>
+      by <%= link_to @post.user.username, @post.user %>
     </small>
   </div>
   <div class="panel-body post-description">
@@ -33,4 +33,12 @@
 </div>
 
 <%= render 'comments/new' if user_signed_in? %>
-<%= render 'comments/list', comments: @post.comments.reverse %>
+<div class="panel panel-default comments">
+  <div class="panel-heading">
+    <div class="panel-title">
+      Comments
+      <span class="small"><%= @post.comments.count %> total</span>
+    </div>
+  </div>
+  <%= render 'comments/list', comments: @post.comments.reverse %>
+</div>
