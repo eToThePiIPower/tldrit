@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all.sort { |p1, p2| p2.votes_total <=> p1.votes_total }
+    @posts = Post.all.order(cached_votes_score: :desc)
   end
 
   # GET /posts/1
