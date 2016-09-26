@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @post, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { redirect_to @post }
+        format.html { redirect_to @post, alert: 'Comments must not be blank.' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

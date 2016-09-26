@@ -1,5 +1,5 @@
 module DeviseViewsHelper
-  def devise_error_messages!
+  def devise_errors_message!
     return '' if resource.errors.empty?
 
     messages = resource.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
@@ -9,8 +9,8 @@ module DeviseViewsHelper
 
     html = <<-HTML
     <div class="alert alert-danger alert-block devise-bs">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <h5>#{sentence}</h5>
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <strong>#{sentence}</strong>
       <ul>#{messages}</ul>
     </div>
     HTML
