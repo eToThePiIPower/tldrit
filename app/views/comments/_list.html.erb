@@ -13,7 +13,7 @@
         </div>
         <div class='small' class="comment-meta">
           Posted <%= time_ago_in_words(comment.created_at) %>
-          by <%= comment.user.email %>
+          by <%= comment.user.username %>
           <% if user_signed_in? && comment.user == current_user %>
             <div class="btn-group comment-actions">
               <%= link_to 'Edit', edit_post_comment_path(@post, comment),
