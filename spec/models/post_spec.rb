@@ -65,13 +65,11 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe '#total_votes' do
+  describe '#score' do
     it 'subtracts downvotes from upvotes' do
       post = build(:post)
-      allow(post).to receive_message_chain(:votes_for, :up, :size) { 5 }
-      allow(post).to receive_message_chain(:votes_for, :down, :size) { 1 }
-
-      expect(post.votes_total).to eq(4)
+      expect(post).to receive(:cached_votes_score)
+      post.score
     end
   end
 end

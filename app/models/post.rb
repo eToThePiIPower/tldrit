@@ -28,8 +28,8 @@ class Post < ActiveRecord::Base
     self[:url]
   end
 
-  def votes_total
-    votes_for.up.size - votes_for.down.size
+  def score
+    cached_votes_score
   end
 
   def link?

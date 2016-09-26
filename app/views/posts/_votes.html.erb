@@ -10,9 +10,9 @@
   <% end %>
 
   <% if user_signed_in? and current_user.voted_on? post %>
-    <div class="votes_total voted btn btn-xs btn-default"><%= post.votes_total %></div>
+    <div class="votes_score voted btn btn-xs btn-default"><%= post.score %></div>
   <% else %>
-    <div class="votes_total btn btn-xs btn-default"><%= post.votes_total %></div>
+    <div class="votes_score btn btn-xs btn-default"><%= post.score %></div>
   <% end %>
 
   <% if user_signed_in? and current_user.voted_down_on? post %>
