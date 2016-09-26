@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     body 'MyText'
-    link
+    post
     user
   end
 end

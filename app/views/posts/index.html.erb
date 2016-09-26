@@ -1,0 +1,19 @@
+<ul class="list-group">
+  <% @posts.each do |post| %>
+    <li class="post list-group-item">
+      <%= render 'votes', post: post %>
+      <h4 class="title">
+        <%= link_to post.title, post %>
+        <% if post.link %>
+          <span class="small glyphicon glyphicon-link"></span>
+          <small>(<%= post.host %>)</small>
+        <% end %>
+      </h4>
+      <small class="author">
+        Submitted <%= time_ago_in_words(post.created_at) %>
+        by <%= post.user.email %>
+      </small>
+      <div class="badge badge-comments"><%= pluralize post.comments.count, 'comment' %></div>
+    </li>
+  <% end %>
+</ul>

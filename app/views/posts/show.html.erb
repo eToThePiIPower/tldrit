@@ -1,0 +1,36 @@
+<div class="panel panel-default post">
+  <div class="panel-heading">
+    <%= render 'votes', post: @post %>
+    <h4>
+      <% if @post.link %>
+        <%= link_to @post.title, @post.full_url %>
+        <span class="small glyphicon glyphicon-link"></span>
+        <small>(<%= @post.host %>)</small>
+      <% else %>
+        <%= @post.title %>
+      <% end %>
+    </h4>
+    <small>
+      Submitted <%= time_ago_in_words(@post.created_at) %>
+      by <%= @post.user.email %>
+    </small>
+  </div>
+  <div class="panel-body post-description">
+    <% if @post.description.present? %>
+      <%= markdown(@post.description) %>
+    <% else %>
+      No description
+    <% end %>
+  </div>
+  <% if user_signed_in? && current_user == @post.user %>
+    <div class="panel-footer clearfix">
+      <div class="btn-group pull-right">
+        <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-xs btn-default' %>
+        <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= render 'comments/new' if user_signed_in? %>
+<%= render 'comments/list', comments: @post.comments.reverse %>

@@ -1,4 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "devise";
-@import "links";
+@import "posts";
+
+.navbar-brand {
+  font-weight: 900;
+}

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'links/show', type: :view do
+RSpec.describe 'posts/show', type: :view do
   before(:each) do
-    @link = assign(:link, create(:link, title: 'Title', url: 'https://www.example.com/foo/bar'))
+    @post = assign(:post, create(:post, title: 'Title', url: 'https://www.example.com/foo/bar'))
   end
 
   it 'renders attributes in <p>' do

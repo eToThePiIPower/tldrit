@@ -16,9 +16,9 @@
           by <%= comment.user.email %>
           <% if user_signed_in? && comment.user == current_user %>
             <div class="btn-group comment-actions">
-              <%= link_to 'Edit', edit_link_comment_path(@link, comment),
+              <%= link_to 'Edit', edit_post_comment_path(@post, comment),
                     class: 'btn btn-xs btn-default' %>
-              <%= link_to 'Delete', link_comment_path(id: comment.id, link_id: @link.id),
+              <%= link_to 'Delete', post_comment_path(id: comment.id, post_id: @post.id),
                     class: 'btn btn-xs btn-danger',
                     method: :delete,
                     data: { confirm: 'Are you sure?' } %>

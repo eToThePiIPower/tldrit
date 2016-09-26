@@ -1,27 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe LinksController, type: :controller do
+RSpec.describe PostsController, type: :controller do
   describe 'GET #index' do
-    it 'assigns all links as @links' do
-      link = create(:link)
+    it 'assigns all posts as @posts' do
+      post = create(:post)
       get :index
-      expect(assigns(:links)).to eq([link])
+      expect(assigns(:posts)).to eq([post])
     end
   end
 
   describe 'GET #show' do
-    it 'assigns the requested link as @link' do
-      link = create(:link)
-      get :show, id: link.id
-      expect(assigns(:link)).to eq(link)
+    it 'assigns the requested post as @post' do
+      post = create(:post)
+      get :show, id: post.id
+      expect(assigns(:post)).to eq(post)
     end
 
     context 'when a user is signed in' do
       it 'assigns a new comment as @comment' do
         sign_in(create(:user))
-        link = create(:link)
+        post = create(:post)
 
-        get :show, id: link.id
+        get :show, id: post.id
 
         expect(assigns(:comment)).to be_a_new(Comment)
       end
@@ -29,9 +29,9 @@ RSpec.describe LinksController, type: :controller do
 
     context 'when no user is signed in' do
       it 'assigns does not a new comment as @comment' do
-        link = create(:link)
+        post = create(:post)
 
-        get :show, id: link.id
+        get :show, id: post.id
 
         expect(assigns(:comment)).to be_nil
       end
@@ -45,16 +45,16 @@ RSpec.describe LinksController, type: :controller do
         sign_in(@user)
       end
 
-      it 'assigns a new link as @link' do
+      it 'assigns a new post as @post' do
         get :new
-        expect(assigns(:link)).to be_a_new(Link)
+        expect(assigns(:post)).to be_a_new(Post)
       end
     end
 
     context 'when no user is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
       end
 
       it 'redirects to the sign_in page' do
@@ -67,44 +67,44 @@ RSpec.describe LinksController, type: :controller do
   describe 'GET #edit' do
     context 'when the owner is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
         sign_in(@owner)
       end
 
-      it 'assigns the requested link as @link' do
-        get :edit, id: @link.id
-        expect(assigns(:link)).to eq(@link)
+      it 'assigns the requested post as @post' do
+        get :edit, id: @post.id
+        expect(assigns(:post)).to eq(@post)
       end
     end
 
     context 'when another user is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
         @user = create(:user)
         sign_in(@user)
       end
 
       it 'flashes an authorization error' do
-        get :edit, id: @link.id
+        get :edit, id: @post.id
         expect(flash[:alert]).to match(/You are not authorized/)
       end
 
       it 'redirects to the root path' do
-        get :edit, id: @link.id
+        get :edit, id: @post.id
         expect(response).to redirect_to root_path
       end
     end
 
     context 'when no user is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
       end
 
       it 'redirects to the sign_in page' do
-        get :edit, id: @link.id
+        get :edit, id: @post.id
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -118,34 +118,34 @@ RSpec.describe LinksController, type: :controller do
       end
 
       context 'with valid params' do
-        it 'creates a new Link' do
+        it 'creates a new Post' do
           expect do
-            post :create, link: attributes_for(:link)
-          end.to change(Link, :count).by(1)
+            post :create, post: attributes_for(:post)
+          end.to change(Post, :count).by(1)
         end
 
-        it 'assigns a newly created link as @link' do
-          post :create, link: attributes_for(:link)
+        it 'assigns a newly created post as @post' do
+          post :create, post: attributes_for(:post)
 
-          expect(assigns(:link)).to be_a(Link)
-          expect(assigns(:link)).to be_persisted
-          expect(assigns(:link).user).to be_a(User)
+          expect(assigns(:post)).to be_a(Post)
+          expect(assigns(:post)).to be_persisted
+          expect(assigns(:post).user).to be_a(User)
         end
 
-        it 'redirects to the created link' do
-          post :create, link: attributes_for(:link)
-          expect(response).to redirect_to(Link.last)
+        it 'redirects to the created post' do
+          post :create, post: attributes_for(:post)
+          expect(response).to redirect_to(Post.last)
         end
       end
 
       context 'with invalid params' do
-        it 'assigns a newly created but unsaved link as @link' do
-          post :create, link: attributes_for(:link, :invalid)
-          expect(assigns(:link)).to be_a_new(Link)
+        it 'assigns a newly created but unsaved post as @post' do
+          post :create, post: attributes_for(:post, :invalid)
+          expect(assigns(:post)).to be_a_new(Post)
         end
 
         it "re-renders the 'new' template" do
-          post :create, link: attributes_for(:link, title: '')
+          post :create, post: attributes_for(:post, title: '')
           expect(response).to render_template('new')
         end
       end
@@ -153,14 +153,14 @@ RSpec.describe LinksController, type: :controller do
 
     context 'when no user is signed in' do
       context 'with valid params' do
-        it 'does not create a new Link' do
+        it 'does not create a new Post' do
           expect do
-            post :create, link: attributes_for(:link)
-          end.not_to change(Link, :count)
+            post :create, post: attributes_for(:post)
+          end.not_to change(Post, :count)
         end
 
         it 'redirects to the sign_in page' do
-          post :create, link: attributes_for(:link, title: '')
+          post :create, post: attributes_for(:post, title: '')
           expect(response).to redirect_to new_user_session_path
         end
       end
@@ -170,42 +170,42 @@ RSpec.describe LinksController, type: :controller do
   describe 'PUT #update' do
     context 'when the owner is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
         sign_in(@owner)
       end
 
       context 'with valid params' do
         let(:new_attributes) do
-          attributes_for(:link, title: 'Something New')
+          attributes_for(:post, title: 'Something New')
         end
 
-        it 'updates the requested link' do
-          put :update, id: @link.id, link: new_attributes
-          @link.reload
+        it 'updates the requested post' do
+          put :update, id: @post.id, post: new_attributes
+          @post.reload
 
-          expect(@link.title).to eq 'Something New'
+          expect(@post.title).to eq 'Something New'
         end
 
-        it 'assigns the requested link as @link' do
-          put :update, id: @link.id, link: new_attributes
-          expect(assigns(:link)).to eq(@link)
+        it 'assigns the requested post as @post' do
+          put :update, id: @post.id, post: new_attributes
+          expect(assigns(:post)).to eq(@post)
         end
 
-        it 'redirects to the link' do
-          put :update, id: @link.id, link: new_attributes
-          expect(response).to redirect_to(@link)
+        it 'redirects to the post' do
+          put :update, id: @post.id, post: new_attributes
+          expect(response).to redirect_to(@post)
         end
       end
 
       context 'with invalid params' do
-        it 'assigns the link as @link' do
-          put :update, id: @link.id, link: attributes_for(:link, :invalid)
-          expect(assigns(:link)).to eq(@link)
+        it 'assigns the post as @post' do
+          put :update, id: @post.id, post: attributes_for(:post, :invalid)
+          expect(assigns(:post)).to eq(@post)
         end
 
         it "re-renders the 'edit' template" do
-          put :update, id: @link.id, link: attributes_for(:link, :invalid)
+          put :update, id: @post.id, post: attributes_for(:post, :invalid)
           expect(response).to render_template('edit')
         end
       end
@@ -213,33 +213,33 @@ RSpec.describe LinksController, type: :controller do
 
     context 'when another user is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
         @user = create(:user)
         sign_in(@user)
       end
 
       context 'with valid params' do
         let(:new_attributes) do
-          attributes_for(:link, title: 'Something New')
+          attributes_for(:post, title: 'Something New')
         end
 
-        it 'does not updates the requested link' do
-          old_title = @link.title
+        it 'does not updates the requested post' do
+          old_title = @post.title
 
-          put :update, id: @link.id, link: new_attributes
-          @link.reload
+          put :update, id: @post.id, post: new_attributes
+          @post.reload
 
-          expect(@link.title).to eq old_title
+          expect(@post.title).to eq old_title
         end
 
         it 'flashes an authorization error' do
-          put :update, id: @link.id, link: new_attributes
+          put :update, id: @post.id, post: new_attributes
           expect(flash[:alert]).to match(/You are not authorized/)
         end
 
         it 'redirects to the root path' do
-          put :update, id: @link.id, link: new_attributes
+          put :update, id: @post.id, post: new_attributes
           expect(response).to redirect_to root_path
         end
       end
@@ -247,26 +247,26 @@ RSpec.describe LinksController, type: :controller do
 
     context 'when no user is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
       end
 
       context 'with valid params' do
         let(:new_attributes) do
-          attributes_for(:link, title: 'Something New')
+          attributes_for(:post, title: 'Something New')
         end
 
-        it 'does not updates the requested link' do
-          old_title = @link.title
+        it 'does not updates the requested post' do
+          old_title = @post.title
 
-          put :update, id: @link.id, link: new_attributes
-          @link.reload
+          put :update, id: @post.id, post: new_attributes
+          @post.reload
 
-          expect(@link.title).to eq old_title
+          expect(@post.title).to eq old_title
         end
 
         it 'redirects to the sign_in page' do
-          put :update, id: @link.id, link: new_attributes
+          put :update, id: @post.id, post: new_attributes
           expect(response).to redirect_to new_user_session_path
         end
       end
@@ -276,62 +276,62 @@ RSpec.describe LinksController, type: :controller do
   describe 'DELETE #destroy' do
     context 'when the owner is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
         sign_in(@owner)
       end
 
-      it 'destroys the requested link' do
+      it 'destroys the requested post' do
         expect do
-          delete :destroy, id: @link.id
-        end.to change(Link, :count).by(-1)
+          delete :destroy, id: @post.id
+        end.to change(Post, :count).by(-1)
       end
 
-      it 'redirects to the links list' do
-        delete :destroy, id: @link.id
-        expect(response).to redirect_to(links_url)
+      it 'redirects to the posts list' do
+        delete :destroy, id: @post.id
+        expect(response).to redirect_to(posts_url)
       end
     end
 
     context 'when another user is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
         @user = create(:user)
         sign_in(@user)
       end
 
-      it 'does not destroys the requested link' do
+      it 'does not destroys the requested post' do
         expect do
-          delete :destroy, id: @link.id
-        end.not_to change(Link, :count)
+          delete :destroy, id: @post.id
+        end.not_to change(Post, :count)
       end
 
       it 'flashes an authorization error' do
-        delete :destroy, id: @link.id
+        delete :destroy, id: @post.id
         expect(flash[:alert]).to match(/You are not authorized/)
       end
 
       it 'redirects to the root path' do
-        delete :destroy, id: @link.id
+        delete :destroy, id: @post.id
         expect(response).to redirect_to root_path
       end
     end
 
     context 'when no user is logged in' do
       before do
-        @link = create(:link)
-        @owner = @link.user
+        @post = create(:post)
+        @owner = @post.user
       end
 
-      it 'does not destroys the requested link' do
+      it 'does not destroys the requested post' do
         expect do
-          delete :destroy, id: @link.id
-        end.not_to change(Link, :count)
+          delete :destroy, id: @post.id
+        end.not_to change(Post, :count)
       end
 
       it 'redirects to the sign_in page' do
-        delete :destroy, id: @link.id
+        delete :destroy, id: @post.id
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -340,7 +340,7 @@ RSpec.describe LinksController, type: :controller do
   describe 'PUT #upvote' do
     context 'when a user is logged in' do
       before do
-        @link = create(:link)
+        @post = create(:post)
         @user = create(:user)
         sign_in(@user)
         request.env['HTTP_REFERER'] = '/'
@@ -348,21 +348,21 @@ RSpec.describe LinksController, type: :controller do
 
       it 'increases upvotes by 1' do
         expect do
-          put :upvote, id: @link.id
-        end.to change(@link.votes_for.up, :count).by(1)
+          put :upvote, id: @post.id
+        end.to change(@post.votes_for.up, :count).by(1)
       end
     end
 
     context 'when no user is logged in' do
       before do
-        @link = create(:link)
+        @post = create(:post)
         request.env['HTTP_REFERER'] = '/'
       end
 
       it 'does not increase upvotes' do
         expect do
-          put :upvote, id: @link.id
-        end.not_to change(@link.votes_for.up, :count)
+          put :upvote, id: @post.id
+        end.not_to change(@post.votes_for.up, :count)
       end
     end
   end
@@ -370,7 +370,7 @@ RSpec.describe LinksController, type: :controller do
   describe 'PUT #downvote' do
     context 'when a user is logged in' do
       before do
-        @link = create(:link)
+        @post = create(:post)
         @user = create(:user)
         sign_in(@user)
         request.env['HTTP_REFERER'] = '/'
@@ -378,21 +378,21 @@ RSpec.describe LinksController, type: :controller do
 
       it 'increases downvotes by 1' do
         expect do
-          put :downvote, id: @link.id
-        end.to change(@link.votes_for.down, :count).by(1)
+          put :downvote, id: @post.id
+        end.to change(@post.votes_for.down, :count).by(1)
       end
     end
 
     context 'when no user is logged in' do
       before do
-        @link = create(:link)
+        @post = create(:post)
         request.env['HTTP_REFERER'] = '/'
       end
 
       it 'does not increase downvotes' do
         expect do
-          put :downvote, id: @link.id
-        end.not_to change(@link.votes_for.down, :count)
+          put :downvote, id: @post.id
+        end.not_to change(@post.votes_for.down, :count)
       end
     end
   end

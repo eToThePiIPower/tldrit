@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_link
+  before_action :set_post
   before_action :authenticate_user!
   before_action :authorize_ownership!, only: [:edit, :update, :destroy]
 
@@ -9,8 +9,8 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @link, notice: 'Link was successfully updated.' }
-        format.json { render :show, status: :ok, location: @link }
+        format.html { redirect_to @post, notice: 'Comment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
         format.json { head status: :unprocessable_entity }
@@ -20,14 +20,14 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.new(comment_params)
-    @comment.link = @link
+    @comment.post = @post
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @link, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @link }
+        format.html { redirect_to @post, notice: 'Comment was successfully created.' }
+        format.json { render :show, status: :created, location: @post }
       else
-        format.html { redirect_to @link }
+        format.html { redirect_to @post }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -36,15 +36,15 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy!
     respond_to do |format|
-      format.html { redirect_to @link, notice: 'Comment was successfully deleted.' }
+      format.html { redirect_to @post, notice: 'Comment was successfully deleted.' }
       format.json { head :no_content }
     end
   end
 
   private
 
-  def set_link
-    @link = Link.find(params[:link_id])
+  def set_post
+    @post = Post.find(params[:post_id])
   rescue
     redirect_to :root
   end
@@ -54,9 +54,9 @@ class CommentsController < ApplicationController
   end
 
   def authorize_ownership!
-    @comment = current_user.comments.find_by(params.permit(:id, :link_id))
+    @comment = current_user.comments.find_by(params.permit(:id, :post_id))
     return unless @comment.nil?
-    redirect_to @link
+    redirect_to @post
     flash[:alert] = 'You are not authorized to perform that operation'
   end
 end

@@ -1,7 +1,7 @@
-// Place all the styles related to the Links controller here.
+// Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.link {
+.post {
   .title {
     margin-bottom: 0;
   }
@@ -11,19 +11,24 @@
 
   .votes {
     position: absolute;
-    top: 0;
+    top: -1px;
     bottom: 0;
-    left: -3em;
-    padding-top: 3px;
+    left: calc(-3em - 16px);;
+    width: 3em;
     text-align: center;
+  }
+
+  margin-left: calc(3em + 15px);
+}
+
+.badge-comments {
+  display: none;
+  @media (min-width: $screen-sm-min) {
+    display: inline-block;
   }
 }
 
-.comment {
-  position: relative;
-  &:nth-child(even) {
-    background-color: mix($list-group-hover-bg, $body-bg);
-  }
+.comment, .post-description {
   h1 {
     font-size: 24px;
   }
@@ -41,6 +46,16 @@
   }
   h4, h5, h6 {
     margin: 0px 0 10px;
+  }
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.comment {
+  position: relative;
+  &:nth-child(even) {
+    background-color: mix($list-group-hover-bg, $body-bg);
   }
   .comment-actions {
     position: absolute;

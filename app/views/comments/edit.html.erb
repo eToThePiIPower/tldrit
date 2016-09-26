@@ -3,7 +3,7 @@
     <div class="panel-title">Edit a Comment</div>
   </div>
   <div class="panel-body">
-    <%= form_for([@link, @comment]) do |f| %>
+    <%= form_for([@post, @comment]) do |f| %>
       <div class="form-group">
         <%= f.label :body, class: 'sr-only' %>
         <%= f.text_area :body, rows: 5, autofocus: true, class: "form-control" %>

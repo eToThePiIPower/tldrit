@@ -1,13 +1,17 @@
-# Link: A posted URL with a title, description, and comments
-class Link < ActiveRecord::Base
+# Post: A posted URL with a title, description, and comments
+class Post < ActiveRecord::Base
   belongs_to :user
   has_many :comments
 
   validates :title, presence: true
   validates :title, length: { minimum: 3, maximum: 140 }
 
-  validates :url, presence: true, uri: true
-  validates :url, length: { minimum: 3, maximum: 140 }
+  validates :url, uri: true
+  validates :url, presence: true, if: :link
+  validates :url, length: { minimum: 3, maximum: 140 }, if: :link
+
+  validates :description, presence: true, unless: :link
+  validates :description, length: { minimum: 20, maximum: 2000 }, unless: :link
 
   acts_as_votable
 
@@ -26,5 +30,9 @@ class Link < ActiveRecord::Base
 
   def votes_total
     votes_for.up.size - votes_for.down.size
+  end
+
+  def link?
+    url.present?
   end
 end

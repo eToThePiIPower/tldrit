@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :link do
+  factory :post do
     user
     title 'Valid Title'
     url 'http://www.example.com'

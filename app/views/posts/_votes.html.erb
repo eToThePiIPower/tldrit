@@ -1,24 +1,24 @@
 <div class="votes btn-group-vertical">
-  <% if user_signed_in? and current_user.voted_up_on? link %>
+  <% if user_signed_in? and current_user.voted_up_on? post %>
     <div class="upvote btn btn-xs btn-success"><i class="glyphicon glyphicon-menu-up upvoted"></i></div>
   <% elsif user_signed_in? %>
-    <%= link_to upvote_link_path(link), class: 'upvote btn btn-xs btn-default', method: :put do %>
+    <%= link_to upvote_post_path(post), class: 'upvote btn btn-xs btn-default', method: :put do %>
       <i class="glyphicon glyphicon-menu-up"></i>
     <% end %>
   <% else %>
     <div class="upvote btn btn-xs btn-default"><i class="glyphicon glyphicon-menu-up"></i></div>
   <% end %>
 
-  <% if user_signed_in? and current_user.voted_on? link %>
-    <div class="votes_total voted btn btn-xs btn-default"><%= link.votes_total %></div>
+  <% if user_signed_in? and current_user.voted_on? post %>
+    <div class="votes_total voted btn btn-xs btn-default"><%= post.votes_total %></div>
   <% else %>
-    <div class="votes_total btn btn-xs btn-default"><%= link.votes_total %></div>
+    <div class="votes_total btn btn-xs btn-default"><%= post.votes_total %></div>
   <% end %>
 
-  <% if user_signed_in? and current_user.voted_down_on? link %>
+  <% if user_signed_in? and current_user.voted_down_on? post %>
     <div class="downvote btn btn-xs btn-danger"><i class="glyphicon glyphicon-menu-down downvoted"></i></div>
   <% elsif user_signed_in? %>
-    <%= link_to downvote_link_path(link), class: 'downvote btn btn-xs btn-default', method: :put do %>
+    <%= link_to downvote_post_path(post), class: 'downvote btn btn-xs btn-default', method: :put do %>
       <i class="glyphicon glyphicon-menu-down"></i>
     <% end %>
   <% else %>

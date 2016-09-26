@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'links#index'
-  resources :links do
+  root to: 'posts#index'
+  resources :posts do
     member do
-      put 'upvote', to: 'links#upvote'
-      put 'downvote', to: 'links#downvote'
+      put 'upvote', to: 'posts#upvote'
+      put 'downvote', to: 'posts#downvote'
     end
     resources :comments, only: [:create, :destroy, :edit, :update]
   end
