@@ -30,6 +30,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = current_user.posts.new(post_params)
+    @post.link = false if @post.url.blank?
 
     respond_to do |format|
       if @post.save

@@ -58,11 +58,7 @@
 
       <div class="tab-content">
         <div id="posts" class="tab-pane fade in active">
-          <div class="panel-body">
-            <div class="container-fluid">
-              <%= render 'posts/list', posts: @user.posts.order(cached_votes_score: :desc) %>
-            </div>
-          </div>
+          <%= render 'posts/list', posts: @user.posts.order(cached_votes_score: :desc) %>
         </div>
         <div id="comments" class="tab-pane fade">
           <%= render 'comments/list', comments: @user.comments.order(created_at: :desc) %>

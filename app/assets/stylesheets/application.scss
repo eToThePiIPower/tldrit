@@ -1,8 +1,9 @@
-$screen-sm: 720px;
-$container-tablet: 672px;
-$panel-primary-heading-bg: #428bca;
 @import "bootstrap-sprockets";
+@import "variables";
+@import "bootswatch/variables";
 @import "bootstrap";
+@import "bootswatch/bootswatch";
+
 @import "panel-images";
 @import "tab-panels";
 

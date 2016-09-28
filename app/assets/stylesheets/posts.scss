@@ -3,7 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .post {
   .title {
-    margin-bottom: 0;
   }
   .author {
   }
@@ -11,14 +10,14 @@
 
   .votes {
     position: absolute;
-    top: -1px;
-    bottom: 0;
-    left: calc(-3em - 16px);
+    top: 6px;
+    left: 0;
+    //left: calc(-3em - 16px);
     width: 3em;
     text-align: center;
   }
 
-  margin-left: calc(3em + 15px);
+  padding-left: calc(3em + 15px);
 }
 
 .badge-comments {
